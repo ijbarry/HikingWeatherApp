@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<GridPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="uk.ac.cam.interaction_design.group02.hiking_app.frontend.MainWindow"
+            alignment="CENTER"
+            minWidth="300"
+            minHeight="500"
+            >
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100" />
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints minHeight="25" maxHeight="50" vgrow="ALWAYS"/> <!-- Menu button row -->
+        <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
+    <HBox GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" GridPane.rowIndex="0" GridPane.columnIndex="0" maxWidth="Infinity">
+        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Home</Button>
+        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Map</Button>
+        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Settings</Button>
+        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Add</Button>
+    </HBox>
+    <Text GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0" textAlignment="CENTER">Hello World!</Text>
+</GridPane>
