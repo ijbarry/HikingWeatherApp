@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Naive implementation of the weather API using O(n) cache searching
+ * Naive implementation of the weather API using O(n) cache searching (would scale better with k-d tree)
  * Implemented using Singleton pattern so it can be accessed from any module
  * TODO: Implement API calls
  */

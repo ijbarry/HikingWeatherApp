@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.BorderPane;
@@ -15,8 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 
 public class MainWindow extends Application {
 
@@ -98,6 +99,19 @@ public class MainWindow extends Application {
         primaryStage.setScene(scene);
         primaryStage.setMinHeight(100);
         primaryStage.setMinWidth(250);
+
+        //Make sure the settings get dumped to disk when the application is closed
+        primaryStage.setOnCloseRequest((event) -> {
+            try {
+                AppSettings.getInstance().saveToDisk();
+            } catch (IOException exception) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Settings not saved!");
+                alert.setContentText("Settings file failed to save.");
+
+                alert.showAndWait();
+            }
+        });
 
         primaryStage.show();
     }

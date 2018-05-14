@@ -1,9 +1,11 @@
 package uk.ac.cam.interaction_design.group02.hiking_app.backend;
 
+import java.io.Serializable;
+
 /**
  * Mutable class representing a single hike
  */
-public class Hike {
+public class Hike implements Serializable{
     private double longitude;
     private double latitude;
 
