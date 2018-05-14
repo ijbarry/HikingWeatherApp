@@ -22,7 +22,7 @@
         <RowConstraints minHeight="25" maxHeight="50" vgrow="ALWAYS"/> <!-- Menu button row -->
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
-    <HBox GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" GridPane.rowIndex="0" GridPane.columnIndex="0" maxWidth="Infinity">
+    <HBox GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES" GridPane.rowIndex="0" GridPane.columnIndex="0" maxWidth="Infinity">
         <Button fx:id="homeButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" onAction="#handleHomeButtonAction">Home</Button>
         <Button fx:id="mapButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" onAction="#handleMapButtonAction">Map</Button>
         <Button fx:id="settingsButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"  onAction="#handleSettingsButtonAction">Settings</Button>
@@ -30,5 +30,5 @@
     </HBox>
 
     <!--Main container used for embedding the other controls-->
-    <BorderPane fx:id="mainContainer" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+    <BorderPane fx:id="mainContainer" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.vgrow="SOMETIMES" GridPane.hgrow="SOMETIMES"/>
 </GridPane>
