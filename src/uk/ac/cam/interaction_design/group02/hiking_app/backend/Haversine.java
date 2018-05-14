@@ -7,7 +7,7 @@ public class Haversine {
     /**
      * Approximate radius of the earth in metres
      */
-    private static double EARTH_RADIUS = 6371000;
+    private static final double EARTH_RADIUS = 6371000;
 
     /**
      * Calculate the Haversine distance between two points on Earth

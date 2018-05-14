@@ -8,7 +8,7 @@ import java.util.List;
  * Implemented using Singleton pattern so it can be accessed from any module
  * TODO: Implement API calls
  */
-public class NaiveAPI implements IWeatherAPI {
+public class NaiveAPI implements IAPICache {
     /**
      * long stating the Unix time for which a data point should be valid (1 hour)
      */

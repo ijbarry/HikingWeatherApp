@@ -23,10 +23,12 @@
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <HBox GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" GridPane.rowIndex="0" GridPane.columnIndex="0" maxWidth="Infinity">
-        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Home</Button>
-        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Map</Button>
-        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Settings</Button>
-        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Add</Button>
+        <Button fx:id="homeButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" onAction="#handleHomeButtonAction">Home</Button>
+        <Button fx:id="mapButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" onAction="#handleMapButtonAction">Map</Button>
+        <Button fx:id="settingsButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"  onAction="#handleSettingsButtonAction">Settings</Button>
+        <Button fx:id="addButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"  onAction="#handleMapButtonAction">Add</Button>
     </HBox>
-    <Text GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0" textAlignment="CENTER">Hello World!</Text>
+
+    <!--Main container used for embedding the other controls-->
+    <BorderPane fx:id="mainContainer" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0" />
 </GridPane>
