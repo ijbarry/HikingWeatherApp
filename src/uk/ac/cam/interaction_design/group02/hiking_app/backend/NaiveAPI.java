@@ -28,7 +28,8 @@ public class NaiveAPI implements IAPICache {
      * @return Weather for a point
      */
     private WeatherPoint fetchWeatherUsingAPI(double latitude, double longitude) throws APIException {
-        return null;
+        List<WeatherData> data = List.of(new WeatherData(273.15, 1000, 100));
+        return new WeatherPoint(latitude, longitude, System.currentTimeMillis()/1000, data);
     }
 
     private boolean isStale(WeatherPoint point, long currentTime) {

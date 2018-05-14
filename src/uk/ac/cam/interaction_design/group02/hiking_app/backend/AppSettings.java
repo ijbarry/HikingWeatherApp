@@ -36,6 +36,10 @@ public class AppSettings {
         }
     }
 
+    /**
+     * @param f The file to load settings from
+     * @throws IOException When the file doesn't exist
+     */
     private void loadSettingsFromFile(File f) throws IOException{
         FileInputStream fis = new FileInputStream(f);
 
@@ -54,6 +58,9 @@ public class AppSettings {
         }
     }
 
+    /**
+     * Loads default user parameters, used as a fallback if the settings file is malformed or doesn't exist
+     */
     private void loadDefaults() {
         // No hikes by default
         hikes = new ArrayList<>();
@@ -63,6 +70,10 @@ public class AppSettings {
         userLongitude = 0.0916283;
     }
 
+    /**
+     * Dump the current settings to disk by serialising it all
+     * @throws IOException When there's a problem dumping serialised objects to disk
+     */
     public void saveToDisk() throws IOException {
         File f = new File(SETTINGS_FILE_NAME);
         f.createNewFile(); //creates a new file to store settings if one doesn't already exist

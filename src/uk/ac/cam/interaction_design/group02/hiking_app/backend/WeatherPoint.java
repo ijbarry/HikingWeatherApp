@@ -12,7 +12,7 @@ public class WeatherPoint {
     private double longitude;
     private double latitude;
     private List<WeatherData> forecast;
-    private int timeForecastGenerated;
+    private long timeForecastGenerated;
 
     public double getLongitude() {
         return longitude;
@@ -22,7 +22,7 @@ public class WeatherPoint {
         return latitude;
     }
 
-    public int getTimeForecastGenerated() {
+    public long getTimeForecastGenerated() {
         return timeForecastGenerated;
     }
 
@@ -54,7 +54,7 @@ public class WeatherPoint {
         }
     }
 
-    public WeatherPoint(double latitude, double longitude, int timeForecastGenerated, List<WeatherData> weatherData) {
+    public WeatherPoint(double latitude, double longitude, long timeForecastGenerated, List<WeatherData> weatherData) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.timeForecastGenerated = timeForecastGenerated;

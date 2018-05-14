@@ -4,18 +4,15 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 
@@ -40,9 +37,9 @@ public class MainWindow extends Application {
     @FXML
     private Button settingsButton;
 
-    private Node mapControl;
-    private Node homeControl;
-    private Node settingsControl;
+    private MapControl mapControl;
+    private HomeControl homeControl;
+    private SettingsControl settingsControl;
 
     public MainWindow() throws IOException {
         homeControl = new HomeControl();
@@ -77,6 +74,11 @@ public class MainWindow extends Application {
 
     @FXML
     private void handleHomeButtonAction(ActionEvent e) {
+        focusHomeButton();
+    }
+
+    private void focusHomeButton() {
+        homeControl.refresh();
         mainContainer.setCenter(homeControl);
         markAllUnset();
         markSet(homeButton);
@@ -121,8 +123,6 @@ public class MainWindow extends Application {
      */
     @FXML
     public void initialize() {
-        markAllUnset();
-        markSet(homeButton);
-        mainContainer.setCenter(homeControl);
+        focusHomeButton();
     }
 }

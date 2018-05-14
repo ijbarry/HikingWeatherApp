@@ -9,6 +9,18 @@
 <?import javafx.scene.text.Text?>
 <fx:root type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml">
-    <Text GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES" GridPane.columnIndex="0"
-          GridPane.rowIndex="0" textAlignment="CENTER" GridPane.halignment="CENTER">Home Control</Text>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100" />
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints minHeight="25" maxHeight="300" vgrow="SOMETIMES"/> <!-- Current weather -->
+        <RowConstraints vgrow="ALWAYS" />
+    </rowConstraints>
+    <Text fx:id="currentWeatherText" GridPane.hgrow="SOMETIMES" GridPane.vgrow="ALWAYS" GridPane.columnIndex="0"
+          GridPane.rowIndex="0" textAlignment="CENTER" GridPane.halignment="CENTER">Weather Loading</Text>
+    <ScrollPane GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS"
+                GridPane.vgrow="ALWAYS">
+        <VBox fx:id="hikeContainer" />
+    </ScrollPane>
 </fx:root>

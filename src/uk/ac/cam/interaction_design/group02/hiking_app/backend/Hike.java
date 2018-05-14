@@ -8,6 +8,8 @@ import java.io.Serializable;
 public class Hike implements Serializable{
     private double longitude;
     private double latitude;
+    private long startTime;
+    private long endTime;
 
     private String name;
 
@@ -33,5 +35,34 @@ public class Hike implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Hike(String name, double latitude, double longitude, long startTime, long endTime) {
+        this.name = name;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Hike, name %s, at lat/lon (%s, %s)", name, latitude, longitude);
     }
 }
