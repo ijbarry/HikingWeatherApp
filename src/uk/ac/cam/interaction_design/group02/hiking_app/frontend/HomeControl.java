@@ -37,7 +37,7 @@ public class HomeControl extends GridPane {
 
         try {
             WeatherPoint point = api.getWeatherForPoint(settings.getUserLatitude(), settings.getUserLongitude());
-            WeatherData currentWeather = point.getForecastAtTime(point.getTimeForecastGenerated());
+            WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis()/1000);
             double temp = currentWeather.getTemperatureCelsius();
             double humidity = currentWeather.getHumidity();
             currentWeatherText.setText(String.format("Current weather: %s degrees Celsius, humidity %s", temp, humidity));
