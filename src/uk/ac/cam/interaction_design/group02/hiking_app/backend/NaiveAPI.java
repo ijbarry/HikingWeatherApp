@@ -19,7 +19,8 @@ public class NaiveAPI implements IAPICache {
      */
     private static final double LOCATION_TOLERANCE_METRES = 5;
 
-    private List<WeatherPoint> cache;
+    private List<ForecastWeatherPoint> forecastCache;
+    private List<TypicalWeatherPoint> typicalWeatherPoints;
     private static NaiveAPI instance;
 
     /**
@@ -27,12 +28,26 @@ public class NaiveAPI implements IAPICache {
      * TODO: Implement API usage
      * @return Weather for a point
      */
-    private WeatherPoint fetchWeatherUsingAPI(double latitude, double longitude) throws APIException {
-        List<WeatherData> data = List.of(new WeatherData(273.15, 1000, 100));
-        return new WeatherPoint(latitude, longitude, System.currentTimeMillis()/1000, data);
+    private ForecastWeatherPoint fetchWeatherUsingAPI(double latitude, double longitude) throws APIException {
+        List<WeatherData> data = List.of(new WeatherData(System.currentTimeMillis()/1000, 273.15, 1000, 100,
+                0.1, 0.8, ForecastType.MINUTELY, PrecipitationType.RAIN));
+        return new ForecastWeatherPoint(latitude, longitude, System.currentTimeMillis()/1000, data);
     }
 
-    private boolean isStale(WeatherPoint point, long currentTime) {
+    private WeatherData fetchTypicalWeatherForPoint(TypicalWeatherPoint point, long time) throws APIException {
+        double latitude = point.getLatitude();
+        double longitude = point.getLongitude();
+
+        //TODO: make API call, return correct WeatherData for that day
+        WeatherData typicalWeather = new WeatherData(time, 0, 0, 0,
+                1, 0.5, ForecastType.DAILY, PrecipitationType.SLEET);
+
+        point.addDataPoint(typicalWeather);
+
+        return typicalWeather;
+    }
+
+    private boolean isStale(ForecastWeatherPoint point, long currentTime) {
         long timeForecastGenerated = point.getTimeForecastGenerated();
         long timeDelta = timeForecastGenerated - currentTime;
 
@@ -44,7 +59,7 @@ public class NaiveAPI implements IAPICache {
     private void cleanCache() {
         long currentTime = System.currentTimeMillis()/1000;
 
-        cache.removeIf(x -> isStale(x, currentTime));
+        forecastCache.removeIf(x -> isStale(x, currentTime));
     }
 
     /**
@@ -55,14 +70,14 @@ public class NaiveAPI implements IAPICache {
      * @throws APIException Exception when API call to fetch point fails
      */
     @Override
-    public WeatherPoint getWeatherInTolerance(double latitude, double longitude, double tolerance) throws APIException {
+    public ForecastWeatherPoint getWeatherInTolerance(double latitude, double longitude, double tolerance) throws APIException {
         // Running this every time isn't ideal, but prevents case where there are multiple suitable points, and closest is stale
         cleanCache(); //If this call is removed, check stale and remove in loop.
 
-        WeatherPoint bestPoint = null;
+        ForecastWeatherPoint bestPoint = null;
         double bestDistance = tolerance;
 
-        for(WeatherPoint point : cache) {
+        for(ForecastWeatherPoint point : forecastCache) {
             double distance = Haversine.getDistance(point.getLatitude(), point.getLongitude(), latitude, longitude);
             if(distance < bestDistance) {
                 bestPoint = point;
@@ -71,8 +86,8 @@ public class NaiveAPI implements IAPICache {
         }
 
         if(bestPoint == null) {
-            WeatherPoint point = fetchWeatherUsingAPI(latitude, longitude);
-            cache.add(point);
+            ForecastWeatherPoint point = fetchWeatherUsingAPI(latitude, longitude);
+            forecastCache.add(point);
             return point;
         } else {
             return bestPoint;
@@ -81,12 +96,38 @@ public class NaiveAPI implements IAPICache {
 
 
     @Override
-    public WeatherPoint getWeatherForPoint(double latitude, double longitude) throws APIException {
+    public ForecastWeatherPoint getWeatherForPoint(double latitude, double longitude) throws APIException {
         return getWeatherInTolerance(latitude, longitude, LOCATION_TOLERANCE_METRES);
     }
 
+    @Override
+    public WeatherData getTypicalWeatherForPoint(double latitude, double longitude, long time) throws APIException {
+        TypicalWeatherPoint bestPoint = null;
+        double bestDistance = LOCATION_TOLERANCE_METRES;
+
+        for(TypicalWeatherPoint point : typicalWeatherPoints) {
+            double distance = Haversine.getDistance(point.getLatitude(), point.getLongitude(), latitude, longitude);
+            if(distance < bestDistance) {
+                bestPoint = point;
+                bestDistance = distance;
+            }
+        }
+
+        if(bestPoint == null) {
+            bestPoint = new TypicalWeatherPoint(latitude, longitude, new ArrayList<>());
+            typicalWeatherPoints.add(bestPoint);
+        }
+
+        // Now we have a bestPoint, see if it has a point at the right time
+        try {
+            return bestPoint.getDataAboutTime(time);
+        } catch(ForecastException e) {
+            return fetchTypicalWeatherForPoint(bestPoint, time);
+        }
+    }
+
     private NaiveAPI() {
-        cache = new ArrayList<>();
+        forecastCache = new ArrayList<>();
     }
 
     public static NaiveAPI getInstance() {

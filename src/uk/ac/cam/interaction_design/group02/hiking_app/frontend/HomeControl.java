@@ -36,7 +36,7 @@ public class HomeControl extends GridPane {
         hikeControls.clear(); //Wipe out previous hikes (they might've changed)
 
         try {
-            WeatherPoint point = api.getWeatherForPoint(settings.getUserLatitude(), settings.getUserLongitude());
+            ForecastWeatherPoint point = api.getWeatherForPoint(settings.getUserLatitude(), settings.getUserLongitude());
             WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis()/1000);
             double temp = currentWeather.getTemperatureCelsius();
             double humidity = currentWeather.getHumidity();
@@ -54,7 +54,7 @@ public class HomeControl extends GridPane {
                 double hikeLong = h.getLongitude();
                 long hikeStart = h.getEndTime();
 
-                WeatherPoint point = api.getWeatherForPoint(hikeLat, hikeLong);
+                ForecastWeatherPoint point = api.getWeatherForPoint(hikeLat, hikeLong);
                 WeatherData forecast = point.getForecastAtTime(h.getStartTime());
                 double temp = forecast.getTemperatureFahrenheit();
                 double humidity = forecast.getHumidity();

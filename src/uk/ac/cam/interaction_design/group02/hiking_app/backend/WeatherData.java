@@ -6,16 +6,29 @@ package uk.ac.cam.interaction_design.group02.hiking_app.backend;
  */
 public class WeatherData {
     private long timeOfForecast;
+
     private double temperatureCelsius;
     private double pressure;
     private double humidity;
 
-    public WeatherData(double temperatureCelsius, double pressure, double humidity) {
+    private double precipitationIntensity;
+    private double precipitationProbability;
+
+    private ForecastType forecastType;
+    private PrecipitationType precipitationType;
+
+    public WeatherData(long timeOfForecast, double temperatureCelsius, double pressure, double humidity,
+                       double precipitationIntensity, double precipitationProbability,
+                       ForecastType forecastType, PrecipitationType precipitationType) {
         this.temperatureCelsius = temperatureCelsius;
         this.pressure = pressure;
         this.humidity = humidity;
 
-        this.timeOfForecast = System.currentTimeMillis()/1000;
+        this.precipitationIntensity = precipitationIntensity;
+        this.precipitationProbability = precipitationProbability;
+        this.forecastType = forecastType;
+        this.precipitationType = precipitationType;
+        this.timeOfForecast = timeOfForecast;
     }
 
     public long getTimeOfForecast() {
@@ -40,5 +53,21 @@ public class WeatherData {
 
     public double getHumidity() {
         return humidity;
+    }
+
+    public double getPrecipitationProbability() {
+        return precipitationProbability;
+    }
+
+    public double getPrecipitationIntensity() {
+        return precipitationIntensity;
+    }
+
+    public ForecastType getForecastType() {
+        return forecastType;
+    }
+
+    public PrecipitationType getPrecipitationType() {
+        return precipitationType;
     }
 }
