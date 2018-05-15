@@ -6,12 +6,12 @@ package uk.ac.cam.interaction_design.group02.hiking_app.backend;
  */
 public class WeatherData {
     private long timeOfForecast;
-    private double temperatureKelvin;
+    private double temperatureCelsius;
     private double pressure;
     private double humidity;
 
-    public WeatherData(double temperatureKelvin, double pressure, double humidity) {
-        this.temperatureKelvin = temperatureKelvin;
+    public WeatherData(double temperatureCelsius, double pressure, double humidity) {
+        this.temperatureCelsius = temperatureCelsius;
         this.pressure = pressure;
         this.humidity = humidity;
 
@@ -23,15 +23,15 @@ public class WeatherData {
     }
 
     public double getTemperatureKelvin() {
-        return temperatureKelvin;
+        return temperatureCelsius-273.15;
     }
 
     public double getTemperatureCelsius() {
-        return (temperatureKelvin - 273.15);
+        return temperatureCelsius;
     }
 
     public double getTemperatureFahrenheit() {
-        return 9*getTemperatureCelsius()/5 + 32;
+        return 9*temperatureCelsius()/5 + 32;
     }
 
     public double getPressure() {
