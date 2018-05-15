@@ -31,7 +31,7 @@ public class WeatherData {
     }
 
     public double getTemperatureFahrenheit() {
-        return 9*temperatureCelsius/5 + 32;
+        return 9*getTemperatureCelsius()/5 + 32;
     }
 
     public double getPressure() {
